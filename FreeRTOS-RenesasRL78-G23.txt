@@ -1,0 +1,122 @@
+//RenesasRL78-G23
+//Mikail Arani
+#include <Servo.h>
+#include <Arduino_FreeRTOS.h>
+
+// Define Servo objects for the five servos
+Servo servo1, servo2, servo3, servo4, servo5;
+
+// Pin assignments for the servo motors on Arduino Mega (Digital pins 1 to 5)
+const int servoPin1 = 1;
+const int servoPin2 = 2;
+const int servoPin3 = 3;
+const int servoPin4 = 4;
+const int servoPin5 = 5;
+
+// Task handles
+TaskHandle_t Task1Handle, Task2Handle, Task3Handle, Task4Handle, Task5Handle;
+
+// Function prototypes for the tasks
+void TaskServo1(void *pvParameters);
+void TaskServo2(void *pvParameters);
+void TaskServo3(void *pvParameters);
+void TaskServo4(void *pvParameters);
+void TaskServo5(void *pvParameters);
+
+void setup() {
+  // Attach servos to corresponding pins
+  servo1.attach(servoPin1);
+  servo2.attach(servoPin2);
+  servo3.attach(servoPin3);
+  servo4.attach(servoPin4);
+  servo5.attach(servoPin5);
+
+  // Create tasks for each servo
+  xTaskCreate(TaskServo1, "Servo1 Control", 100, NULL, 1, &Task1Handle);
+  xTaskCreate(TaskServo2, "Servo2 Control", 100, NULL, 1, &Task2Handle);
+  xTaskCreate(TaskServo3, "Servo3 Control", 100, NULL, 1, &Task3Handle);
+  xTaskCreate(TaskServo4, "Servo4 Control", 100, NULL, 1, &Task4Handle);
+  xTaskCreate(TaskServo5, "Servo5 Control", 100, NULL, 1, &Task5Handle);
+
+  // Start FreeRTOS scheduler
+  vTaskStartScheduler();
+}
+
+void loop() {
+  // Empty loop since tasks are being handled by FreeRTOS
+}
+
+// Task function for controlling Servo1
+void TaskServo1(void *pvParameters) {
+  (void) pvParameters;
+  while (1) {
+    for (int pos = 0; pos <= 180; pos++) {
+      servo1.write(pos);
+      vTaskDelay(20 / portTICK_PERIOD_MS);  // Wait for 25ms
+    }
+    for (int pos = 180; pos >= 0; pos--) {
+      servo1.write(pos);
+      vTaskDelay(20 / portTICK_PERIOD_MS);  // Wait for 25ms
+    }
+  }
+}
+
+// Task function for controlling Servo2
+void TaskServo2(void *pvParameters) {
+  (void) pvParameters;
+  while (1) {
+    for (int pos = 0; pos <= 180; pos++) {
+      servo2.write(pos);
+      vTaskDelay(20 / portTICK_PERIOD_MS);  // Wait for 25ms
+    }
+    for (int pos = 180; pos >= 0; pos--) {
+      servo2.write(pos);
+      vTaskDelay(20 / portTICK_PERIOD_MS);  // Wait for 25ms
+    
+  }
+}
+
+// Task function for controlling Servo3
+void TaskServo3(void *pvParameters) {
+  (void) pvParameters;
+  while (1) {
+    for (int pos = 0; pos <= 180; pos++) {
+      servo3.write(pos);
+      vTaskDelay(20 / portTICK_PERIOD_MS);  // Wait for 25ms
+    }
+    for (int pos = 180; pos >= 0; pos--) {
+      servo3.write(pos);
+      vTaskDelay(20 / portTICK_PERIOD_MS);  // Wait for 25ms
+    }
+  }
+}
+
+// Task function for controlling Servo4
+void TaskServo4(void *pvParameters) {
+  (void) pvParameters;
+  while (1) {
+    for (int pos = 0; pos <= 180; pos++) {
+      servo4.write(pos);
+      vTaskDelay(20 / portTICK_PERIOD_MS);  // Wait for 25ms
+    }
+    for (int pos = 180; pos >= 0; pos--) {
+      servo4.write(pos);
+      vTaskDelay(20 / portTICK_PERIOD_MS);  // Wait for 25ms
+    }
+  }
+}
+
+// Task function for controlling Servo5
+void TaskServo5(void *pvParameters) {
+  (void) pvParameters;
+  while (1) {
+    for (int pos = 0; pos <= 180; pos++) {
+      servo5.write(pos);
+      vTaskDelay(20 / portTICK_PERIOD_MS);  // Wait for 25ms
+    }
+    for (int pos = 180; pos >= 0; pos--) {
+      servo5.write(pos);
+      vTaskDelay(20 / portTICK_PERIOD_MS);  // Wait for 25ms
+    }
+  }
+}
